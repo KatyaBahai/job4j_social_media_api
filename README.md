@@ -1,4 +1,4 @@
-
+[![Build](https://github.com/KatyaBahai/job4j_social_media_api/actions/workflows/blank.yml/badge.svg)](https://github.com/KatyaBahai/job4j_social_media_api/blob/main/.github/workflows/blank.yml)
 ## Social Media API
 
 ### Overview
