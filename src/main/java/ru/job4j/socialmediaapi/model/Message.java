@@ -1,0 +1,32 @@
+package ru.job4j.socialmediaapi.model;
+import lombok.*;
+
+import javax.persistence.*;
+import java.time.Instant;
+
+@Entity
+@Table(name = "messages")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Message {
+    @Id
+    @GeneratedValue
+    @EqualsAndHashCode.Include
+    private int id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sender_id")
+    private User sender;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipient_id")
+    private User recipient;
+
+    private String text;
+
+    @Column(name = "sent_at")
+    private Instant sentAt;
+}
