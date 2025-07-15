@@ -1,10 +1,11 @@
 package ru.job4j.socialmediaapi.model;
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
+@Builder
 @Table(name = "messages")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +16,7 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private int id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")

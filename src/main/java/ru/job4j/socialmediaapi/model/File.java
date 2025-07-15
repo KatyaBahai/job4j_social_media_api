@@ -2,7 +2,7 @@ package ru.job4j.socialmediaapi.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "files")
@@ -19,5 +19,5 @@ public class File {
     private String name;
     private String path;
     @Column(name = "post_id")
-    private int postId;
+    private Long postId;
 }

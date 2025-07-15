@@ -2,7 +2,7 @@ package ru.job4j.socialmediaapi.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +20,7 @@ public class Post {
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private int id;
+    private Long id;
     private String heading;
     private String description;
 
@@ -28,7 +28,7 @@ public class Post {
     private Instant creationDate;
 
     @Column(name = "user_id")
-    private int userId;
+    private Long userId;
 
     @Builder.Default
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
