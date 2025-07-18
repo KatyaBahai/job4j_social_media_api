@@ -1,7 +1,7 @@
-create table if not exists messages (
-    id BIGSERIAL primary key,
-    sender_id BIGINT references users(id) NOT NULL,
-    recipient_id BIGINT references users(id) NOT NULL,
-    text varchar(10000),
-    sent_at timestamp default now()
+CREATE TABLE IF NOT EXISTS messages (
+    id BIGSERIAL PRIMARY KEY,
+    sender_id BIGINT REFERENCES users(id) NOT NULL,
+    recipient_id BIGINT REFERENCES users(id) NOT NULL,
+    text VARCHAR(10000),
+    sent_at TIMESTAMP DEFAULT NOW()
 );

@@ -1,6 +1,6 @@
-create table if not exists files (
-    id BIGSERIAL primary key,
-    name varchar not null,
-    path varchar not null unique,
-    post_id BIGINT not null references posts(id)
+CREATE TABLE IF NOT EXISTS files (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    path VARCHAR NOT NULL UNIQUE,
+    post_id BIGINT NOT NULL REFERENCES posts(id)
 );

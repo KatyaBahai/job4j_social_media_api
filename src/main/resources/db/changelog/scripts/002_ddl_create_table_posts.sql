@@ -1,7 +1,7 @@
-create table if not exists posts (
-    id BIGSERIAL primary key,
-    description varchar(1000),
-    heading varchar(256),
-    creation_date timestamp default now(),
-    user_id BIGINT not null references users(id)
+CREATE TABLE IF NOT EXISTS posts (
+    id BIGSERIAL PRIMARY KEY,
+    description VARCHAR(1000),
+    heading VARCHAR(256),
+    creation_date TIMESTAMP DEFAULT NOW(),
+    user_id BIGINT NOT NULL REFERENCES USERS(id)
 );
