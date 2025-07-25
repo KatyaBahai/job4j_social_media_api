@@ -5,6 +5,7 @@ import lombok.*;
 import jakarta.persistence.*;
 
 @Entity
+@Builder
 @Table(name = "files")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +16,7 @@ public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private int id;
+    private Long id;
     private String name;
     private String path;
     @Column(name = "post_id")

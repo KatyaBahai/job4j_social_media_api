@@ -5,6 +5,7 @@ import lombok.*;
 import jakarta.persistence.*;
 import java.time.Instant;
 
+@Builder
 @Entity
 @Table(name = "friendships")
 @AllArgsConstructor
