@@ -17,7 +17,6 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-@Transactional
 public class BasicFileService implements FileService {
     private final FileRepository fileRepository;
     private final String storageDirectory;
@@ -29,6 +28,7 @@ public class BasicFileService implements FileService {
         createStorageDirectory(storageDirectory);
     }
 
+    @Transactional
     @Override
     public Optional<File> saveFileFromDto(FileDto fileDto, Post post) {
         String fileName = UUID.randomUUID() + fileDto.getName();
@@ -49,6 +49,7 @@ public class BasicFileService implements FileService {
         }
     }
 
+    @Transactional
     @Override
     public Optional<File> save(FileDto fileDto) {
         String fileName = UUID.randomUUID() + fileDto.getName();
@@ -72,6 +73,7 @@ public class BasicFileService implements FileService {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Optional<FileDto> getFileById(Long id) {
         var fileOptional = fileRepository.findById(id);
@@ -90,6 +92,7 @@ public class BasicFileService implements FileService {
         }
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         var fileOptional = fileRepository.findById(id);
@@ -107,6 +110,7 @@ public class BasicFileService implements FileService {
         }
     }
 
+    @Transactional
     @Override
     public void clearOldFiles(Post post) {
         Set<File> oldFiles = new HashSet<>(post.getFiles());

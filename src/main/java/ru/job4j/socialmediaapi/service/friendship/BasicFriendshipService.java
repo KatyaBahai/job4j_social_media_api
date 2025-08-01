@@ -12,13 +12,13 @@ import ru.job4j.socialmediaapi.service.subscription.SubscriptionService;
 import java.time.Instant;
 import java.util.Optional;
 
-@Transactional
 @Service
 @RequiredArgsConstructor
 public class BasicFriendshipService implements FriendshipService {
     private final FriendshipRepository friendshipRepository;
     private final SubscriptionService subscriptionService;
 
+    @Transactional
     @Override
     public Friendship createFriendship(User user1, User user2) {
         Pair<User, User> friends = normalize(user1, user2);
@@ -37,16 +37,19 @@ public class BasicFriendshipService implements FriendshipService {
         return friendshipRepository.save(friendship);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public boolean existsByFriend1AndFriend2(User friend1, User friend2) {
         return friendshipRepository.existsByFriend1AndFriend2(friend1, friend2);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Optional<Friendship> findByFriend1AndFriend2(User friend1, User friend2) {
         return friendshipRepository.findByFriend1AndFriend2(friend1, friend2);
     }
 
+    @Transactional
     @Override
     public void removeFriendship(User initiator, User target) {
         Pair<User, User> friends = normalize(initiator, target);
@@ -56,7 +59,7 @@ public class BasicFriendshipService implements FriendshipService {
             throw new IllegalStateException("There's no friendship to annul.");
         }
         subscriptionService.unsubscribe(friend1, friend2);
-        friendshipRepository.delete(friendshipRepository.findByFriend1AndFriend2(initiator, target).get());
+        friendshipRepository.delete(friendshipRepository.findByFriend1AndFriend2(friend1, friend2).get());
     }
 
     private Pair<User, User> normalize(User u1, User u2) {

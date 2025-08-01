@@ -19,12 +19,12 @@ public class BasicUserService implements UserService {
 
     @Override
     public Optional<User> findByEmailAndPassword(String email, String password) {
-        return null;
+        return userRepository.findByEmailAndPassword(email, password);
     }
 
     @Override
     public List<User> findAllFollowers(long followedId) {
-        return null;
+        return userRepository.findAllFollowers(followedId);
     }
 
     @Override

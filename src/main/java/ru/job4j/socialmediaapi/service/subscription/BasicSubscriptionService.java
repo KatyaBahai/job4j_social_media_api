@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.socialmediaapi.model.*;
 import ru.job4j.socialmediaapi.repository.SubscriptionRepository;
-import ru.job4j.socialmediaapi.service.friendship.FriendshipService;
 
 import java.time.Instant;
 import java.util.List;
@@ -19,7 +18,7 @@ public class BasicSubscriptionService implements SubscriptionService {
 
     @Override
     public Subscription subscribe(User follower, User followed) {
-        if (subscriptionRepository.findByFollowerAndFollowed(follower, followed).isEmpty()) {
+        if (subscriptionRepository.findByFollowerAndFollowed(follower, followed).isPresent()) {
             throw new IllegalStateException("Subscription already exists");
         }
         Subscription subscription = Subscription.builder()
