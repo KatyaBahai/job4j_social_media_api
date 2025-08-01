@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("from User u WHERE u.email = :email AND u.password = :password")
-    Optional<User> findByEmialAndPassword(
+    Optional<User> findByEmailAndPassword(
             @Param("email") String email,
             @Param("password") String password);
 
@@ -22,6 +22,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
             AND s.isSubscribed = true
             """)
     List<User> findAllFollowers(@Param("followedId") long followedId);
+
+    @Query("""
+            SELECT s.followed
+            FROM Subscription s
+            WHERE s.follower.id = :followerId
+            AND s.isSubscribed = true
+            """)
+    List<User> findAllFollowedByUser(@Param("followerId") long followerId);
 
     @Query("""
              SELECT

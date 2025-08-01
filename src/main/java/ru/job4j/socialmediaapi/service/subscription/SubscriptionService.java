@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SubscriptionService {
-    Subscription createSubscription(User follower, User followed);
+    Subscription subscribe(User follower, User followed);
 
     Optional<Subscription> findByFollowerAndFollowed(User follower, User followed);
 
@@ -18,6 +18,4 @@ public interface SubscriptionService {
     List<Subscription> findByFollower(User follower);
 
     List<Subscription> findByFollowed(User followed);
-
-    int deleteByFollowerAndFollowed(User follower, User followed);
 }

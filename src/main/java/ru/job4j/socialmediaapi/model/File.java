@@ -19,6 +19,7 @@ public class File {
     private Long id;
     private String name;
     private String path;
-    @Column(name = "post_id")
-    private Long postId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
 }

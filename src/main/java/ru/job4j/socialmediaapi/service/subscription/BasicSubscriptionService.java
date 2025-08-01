@@ -18,7 +18,7 @@ public class BasicSubscriptionService implements SubscriptionService {
     private final SubscriptionRepository subscriptionRepository;
 
     @Override
-    public Subscription createSubscription(User follower, User followed) {
+    public Subscription subscribe(User follower, User followed) {
         if (subscriptionRepository.findByFollowerAndFollowed(follower, followed).isEmpty()) {
             throw new IllegalStateException("Subscription already exists");
         }
@@ -58,10 +58,4 @@ public class BasicSubscriptionService implements SubscriptionService {
     public List<Subscription> findByFollowed(User followed) {
         return subscriptionRepository.findByFollowed(followed);
     }
-
-    @Override
-    public int deleteByFollowerAndFollowed(User follower, User followed) {
-        return subscriptionRepository.deleteByFollowerAndFollowed(follower, followed);
-    }
-
 }

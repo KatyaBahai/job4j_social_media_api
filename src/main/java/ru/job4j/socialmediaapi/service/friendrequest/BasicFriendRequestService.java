@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.socialmediaapi.model.FriendRequest;
 import ru.job4j.socialmediaapi.model.FriendRequestStatus;
-import ru.job4j.socialmediaapi.model.Friendship;
 import ru.job4j.socialmediaapi.model.User;
 import ru.job4j.socialmediaapi.repository.FriendRequestRepository;
 import ru.job4j.socialmediaapi.service.friendship.FriendshipService;
@@ -55,16 +54,16 @@ public class BasicFriendRequestService implements FriendRequestService {
 
     @Override
     public Optional<FriendRequest> sendFriendRequest(User sender, User receiver) {
-        subscriptionService.createSubscription(sender, receiver);
+        subscriptionService.subscribe(sender, receiver);
         return createOrFindFriendRequest(sender, receiver, FriendRequestStatus.PENDING);
     }
 
     @Override
     public FriendRequest acceptFriendRequest(User sender, User receiver) {
         if (subscriptionService.findByFollowerAndFollowed(sender, receiver).isEmpty()) {
-            subscriptionService.createSubscription(sender, receiver);
+            subscriptionService.subscribe(sender, receiver);
         }
-        subscriptionService.createSubscription(receiver, sender);
+        subscriptionService.subscribe(receiver, sender);
 
         friendshipService.createFriendship(sender, receiver);
 

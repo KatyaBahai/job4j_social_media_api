@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.job4j.socialmediaapi.dto.FileDto;
 import ru.job4j.socialmediaapi.model.Post;
+import ru.job4j.socialmediaapi.model.User;
 
 import java.time.Instant;
 import java.util.List;
@@ -16,11 +17,15 @@ public interface PostService {
 
     Optional<Post> createPostWithFiles(Post post, List<FileDto> fileDtos);
 
-    Optional<Post> updatePost(Post updatedPost, List<FileDto> fileDtos);
+    Optional<Post> updatePost(long postId, Post updatedPost, List<FileDto> fileDtos);
 
-    int deletePost(long postId);
+    void deletePost(Post post);
+
+    Optional<Post> save(Post post);
 
     List<Post> findByUserId(long userId);
+
+    Optional<Post> findById(long postId);
 
     List<Post> findByCreationDateBetween(Instant startDate, Instant endDate);
 
@@ -31,5 +36,4 @@ public interface PostService {
     int deleteFileFromPost(long fileId);
 
     Page<Post> findFollowedPostsByOrderByCreationDate(int followerId, Pageable pageable);
-
 }

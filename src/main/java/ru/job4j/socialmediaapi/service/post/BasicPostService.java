@@ -3,8 +3,10 @@ package ru.job4j.socialmediaapi.service.post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 import ru.job4j.socialmediaapi.dto.FileDto;
 import ru.job4j.socialmediaapi.model.File;
 import ru.job4j.socialmediaapi.model.Post;
@@ -25,8 +27,9 @@ public class BasicPostService implements PostService {
 
     @Override
     public Optional<Post> createPostWithFiles(Post post, List<FileDto> fileDtos) {
-        saveNewFiles(post, fileDtos);
-        return Optional.of(postRepository.save(post));
+        Post newPost = postRepository.save(post);
+        saveNewFiles(newPost, fileDtos);
+        return Optional.of(newPost);
     }
 
     private void saveNewFiles(Post post, List<FileDto> fileDtos) {
@@ -41,8 +44,8 @@ public class BasicPostService implements PostService {
     }
 
     @Override
-    public Optional<Post> updatePost(Post updatedPost, List<FileDto> fileDtos) {
-        return postRepository.findById(updatedPost.getId()).map(existingPost -> {
+    public Optional<Post> updatePost(long postId, Post updatedPost, List<FileDto> fileDtos) {
+        return postRepository.findById(postId).map(existingPost -> {
             existingPost.setHeading(updatedPost.getHeading());
             existingPost.setDescription(updatedPost.getDescription());
             fileService.clearOldFiles(existingPost);
@@ -52,13 +55,23 @@ public class BasicPostService implements PostService {
     }
 
     @Override
-    public int deletePost(long postId) {
-        return postRepository.deletePost(postId);
+    public Optional<Post> save(Post post) {
+        return Optional.of(postRepository.save(post));
+    }
+
+    @Override
+    public void deletePost(Post post) {
+        postRepository.delete(post);
     }
 
     @Override
     public List<Post> findByUserId(long userId) {
         return postRepository.findByUserId(userId);
+    }
+
+    @Override
+    public Optional<Post> findById(long postId) {
+        return postRepository.findById(postId);
     }
 
     @Override

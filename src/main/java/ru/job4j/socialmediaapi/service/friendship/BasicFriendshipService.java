@@ -55,7 +55,7 @@ public class BasicFriendshipService implements FriendshipService {
         if (friendshipRepository.findByFriend1AndFriend2(friend1, friend2).isEmpty()) {
             throw new IllegalStateException("There's no friendship to annul.");
         }
-        subscriptionService.deleteByFollowerAndFollowed(friend1, friend2);
+        subscriptionService.unsubscribe(friend1, friend2);
         friendshipRepository.delete(friendshipRepository.findByFriend1AndFriend2(initiator, target).get());
     }
 

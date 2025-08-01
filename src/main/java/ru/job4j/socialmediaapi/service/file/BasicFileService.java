@@ -37,7 +37,7 @@ public class BasicFileService implements FileService {
         return Optional.of(fileRepository.save(File.builder()
                 .name(fileDto.getName())
                 .path(path)
-                .postId(post.getId())
+                .post(post)
                 .build()));
     }
 
