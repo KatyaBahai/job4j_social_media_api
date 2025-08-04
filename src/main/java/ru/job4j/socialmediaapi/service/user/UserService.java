@@ -22,4 +22,6 @@ public interface UserService {
     void deleteById(long id);
 
     Optional<User> update(long userId, User user);
+
+    List<User> findAll();
 }

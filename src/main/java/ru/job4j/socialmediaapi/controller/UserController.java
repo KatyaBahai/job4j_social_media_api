@@ -12,6 +12,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.job4j.socialmediaapi.model.User;
 import ru.job4j.socialmediaapi.service.user.UserService;
 
+import java.util.List;
+
 @Validated
 @AllArgsConstructor
 @RestController
@@ -58,4 +60,10 @@ public class UserController {
     public void removeById(@PathVariable long userId) {
         userService.deleteById(userId);
     }
+
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.findAll();
+    }
+
 }

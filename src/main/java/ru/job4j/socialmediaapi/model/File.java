@@ -1,5 +1,6 @@
 package ru.job4j.socialmediaapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -21,5 +22,6 @@ public class File {
     private String path;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
+    @JsonBackReference
     private Post post;
 }

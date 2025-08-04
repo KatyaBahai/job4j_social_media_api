@@ -1,5 +1,6 @@
 package ru.job4j.socialmediaapi.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -31,6 +32,7 @@ public class Post {
     private Long userId;
 
     @Builder.Default
+    @JsonManagedReference
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<File> files = new HashSet<>();
 }

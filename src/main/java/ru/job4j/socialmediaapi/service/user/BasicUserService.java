@@ -23,6 +23,11 @@ public class BasicUserService implements UserService {
     }
 
     @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
     public List<User> findAllFollowers(long followedId) {
         return userRepository.findAllFollowers(followedId);
     }
