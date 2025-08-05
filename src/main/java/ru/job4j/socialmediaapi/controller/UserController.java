@@ -46,24 +46,30 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestBody User user,
+    public ResponseEntity<Void> update(@RequestBody User user,
                        @PathVariable("userId")
                        @NotNull
                        @Min(value = 1, message = "User id minimal value is 1")
                                Long userId) {
-        userService.update(userId, user);
+
+        if (userService.update(userId, user).isPresent()) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{userId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeById(@PathVariable long userId) {
-        userService.deleteById(userId);
+    public ResponseEntity<Void> removeById(@PathVariable long userId) {
+        if (userService.deleteById(userId)) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.findAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(userService.findAll());
     }
 
 }

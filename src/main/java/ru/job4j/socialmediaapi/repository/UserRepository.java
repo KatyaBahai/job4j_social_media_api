@@ -1,6 +1,7 @@
 package ru.job4j.socialmediaapi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.job4j.socialmediaapi.model.User;
@@ -41,4 +42,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
                 WHERE f.friend1.id = :friendId OR f.friend2.id = :friendId
             """)
     List<User> findAllFriends(@Param("friendId") long friendId);
+
+    @Modifying(clearAutomatically = true)
+    @Query("""
+            DELETE from User u
+            WHERE u.id = :id""")
+    int deleteById(@Param("id") long userId);
+
 }

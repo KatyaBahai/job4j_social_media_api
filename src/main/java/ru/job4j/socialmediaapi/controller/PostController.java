@@ -45,20 +45,33 @@ public class PostController {
     }
 
     @PutMapping(value = "/{postId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestPart Post post,
-                       @PathVariable("postId") long postId,
-                       @RequestPart List<MultipartFile> multipartFiles) {
+    public ResponseEntity<Void> update(@RequestPart Post post,
+                                       @PathVariable("postId") long postId,
+                                       @RequestPart List<MultipartFile> multipartFiles) {
         List<FileDto> dtoFiles = MultipartFileDtoMapper.convertMultiparttoDto(multipartFiles);
-        postService.updatePost(postId, post, dtoFiles);
+
+        if (postService.updatePost(postId, post, dtoFiles).isPresent()) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PatchMapping(value = "/{postId}")
+    public ResponseEntity<Void> editHeadingAndDescription(@RequestParam String heading,
+                                                          @RequestParam String description,
+                                                          @PathVariable("postId") long postId) {
+        if (postService.findById(postId).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        postService.editHeadingAndDescription(heading, description, postId);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{postId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeById(@PathVariable long postId) {
-        if (postService.findById(postId).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
+    public ResponseEntity<Void> removeById(@PathVariable long postId) {
+        if (!postService.deleteById(postId)) {
+            return ResponseEntity.noContent().build();
         }
-        postService.deletePost(postService.findById(postId).get());
+        return ResponseEntity.notFound().build();
     }
 }

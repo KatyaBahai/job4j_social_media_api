@@ -19,7 +19,7 @@ public interface UserService {
 
     Optional<User> findById(long id);
 
-    void deleteById(long id);
+    boolean deleteById(long id);
 
     Optional<User> update(long userId, User user);
 

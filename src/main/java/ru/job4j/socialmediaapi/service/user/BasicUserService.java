@@ -63,10 +63,10 @@ public class BasicUserService implements UserService {
     }
 
     @Override
-    public void deleteById(long userId) {
+    public boolean deleteById(long userId) {
         if (!userRepository.existsById(userId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
-        userRepository.deleteById(userId);
+        return userRepository.deleteById(userId) > 0;
     }
 }

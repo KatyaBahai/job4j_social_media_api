@@ -13,6 +13,7 @@ import ru.job4j.socialmediaapi.service.file.FileService;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -63,6 +64,25 @@ public class BasicPostService implements PostService {
     @Override
     public void deletePost(Post post) {
         postRepository.delete(post);
+    }
+
+    @Transactional
+    @Override
+    public boolean deleteById(long postId) {
+        return postRepository.deletePost(postId) > 0;
+    }
+
+    @Transactional
+    @Override
+    public Optional<Post> editHeadingAndDescription(String heading, String description, long postId) {
+        Optional<Post> optSavedPost = postRepository.findById(postId);
+        if (optSavedPost.isEmpty()) {
+            throw new NoSuchElementException("No such post found");
+        }
+        Post post = optSavedPost.get();
+        post.setHeading(heading);
+        post.setDescription(description);
+        return Optional.of(postRepository.save(post));
     }
 
     @Transactional(readOnly = true)

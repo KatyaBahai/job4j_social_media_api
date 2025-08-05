@@ -21,6 +21,10 @@ public interface PostService {
 
     void deletePost(Post post);
 
+    boolean deleteById(long postId);
+
+    Optional<Post> editHeadingAndDescription(String heading, String description, long postId);
+
     Optional<Post> save(Post post);
 
     List<Post> findByUserId(long userId);
