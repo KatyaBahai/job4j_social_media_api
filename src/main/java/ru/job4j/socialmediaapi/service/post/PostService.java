@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.job4j.socialmediaapi.dto.FileDto;
+import ru.job4j.socialmediaapi.dto.UserPostsDto;
 import ru.job4j.socialmediaapi.model.Post;
 import ru.job4j.socialmediaapi.model.User;
 
@@ -40,4 +41,6 @@ public interface PostService {
     int deleteFileFromPost(long fileId);
 
     Page<Post> findFollowedPostsByOrderByCreationDate(int followerId, Pageable pageable);
+
+    UserPostsDto findUserPostsDtoByUserId(long userId);
 }

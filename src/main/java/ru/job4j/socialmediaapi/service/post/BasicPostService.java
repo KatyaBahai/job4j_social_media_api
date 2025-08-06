@@ -6,9 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.socialmediaapi.dto.FileDto;
+import ru.job4j.socialmediaapi.dto.UserPostsDto;
+import ru.job4j.socialmediaapi.mapper.UserPostsDtoMapper;
 import ru.job4j.socialmediaapi.model.File;
 import ru.job4j.socialmediaapi.model.Post;
 import ru.job4j.socialmediaapi.repository.PostRepository;
+import ru.job4j.socialmediaapi.repository.UserRepository;
 import ru.job4j.socialmediaapi.service.file.FileService;
 
 import java.time.Instant;
@@ -21,7 +24,9 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class BasicPostService implements PostService {
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
     private final FileService fileService;
+    private final UserPostsDtoMapper userPostsDtoMapper;
 
     @Transactional
     @Override
@@ -125,5 +130,15 @@ public class BasicPostService implements PostService {
     @Override
     public Page<Post> findFollowedPostsByOrderByCreationDate(int followerId, Pageable pageable) {
         return postRepository.findFollowedPostsByOrderByCreationDate(followerId, pageable);
+    }
+
+    @Transactional
+    @Override
+    public UserPostsDto findUserPostsDtoByUserId(long userId) {
+        if (userRepository.findById(userId).isEmpty()) {
+            throw new IllegalStateException("There's no user with this id");
+        }
+        return userPostsDtoMapper.toDto(
+                        postRepository.findByUserId(userId), userRepository.findById(userId).get());
     }
 }
