@@ -30,7 +30,7 @@ class PostRepositoryTest {
     @Test
     public void whenSaveThenFindById() {
         User user = userRepository.save(new User(null, "john", "email.ru", "pass"));
-        Post post = Post.builder().heading("Heading").userId(user.getId()).build();
+        Post post = Post.builder().heading("Heading").description("descr").userId(user.getId()).build();
         postRepository.save(post);
         var found = postRepository.findById(post.getId());
         assertThat(found).isPresent();
@@ -40,8 +40,8 @@ class PostRepositoryTest {
     @Test
     public void whenFindAllThenReturnAll() {
         User user = userRepository.save(new User(null, "john", "email.ru", "pass"));
-        Post post1 = Post.builder().heading("Heading1").userId(user.getId()).build();
-        Post post2 = Post.builder().heading("Heading2").userId(user.getId()).build();
+        Post post1 = Post.builder().heading("Heading1").description("descr").userId(user.getId()).build();
+        Post post2 = Post.builder().heading("Heading2").description("descrip").userId(user.getId()).build();
         postRepository.save(post1);
         postRepository.save(post2);
         var s = postRepository.findAll();

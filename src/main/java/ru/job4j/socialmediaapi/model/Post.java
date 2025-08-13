@@ -1,9 +1,13 @@
 package ru.job4j.socialmediaapi.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import jakarta.persistence.*;
+import ru.job4j.socialmediaapi.validation.Operations;
+
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,10 +27,12 @@ public class Post {
     @Id
     private Long id;
     private String heading;
+    @NotBlank
     private String description;
 
-    @Column(name = "creation_date")
-    private Instant creationDate;
+    @Builder.Default
+    @Column(name = "creation_date", nullable = false, updatable = false)
+    private Instant creationDate = Instant.now();
 
     @Column(name = "user_id")
     private Long userId;
