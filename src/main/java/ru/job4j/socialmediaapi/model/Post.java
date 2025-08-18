@@ -1,12 +1,11 @@
 package ru.job4j.socialmediaapi.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import jakarta.persistence.*;
-import ru.job4j.socialmediaapi.validation.Operations;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -21,6 +20,7 @@ import java.util.Set;
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(exclude = "files")
+@Schema(description = "Post Model Information")
 public class Post {
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)

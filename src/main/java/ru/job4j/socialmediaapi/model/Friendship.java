@@ -1,5 +1,6 @@
 package ru.job4j.socialmediaapi.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -13,6 +14,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Schema(description = "Model representing 2 users who follow each other and see updates")
 public class Friendship {
     @EqualsAndHashCode.Include
     @Id

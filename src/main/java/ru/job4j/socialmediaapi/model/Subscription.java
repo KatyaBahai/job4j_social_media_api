@@ -1,5 +1,6 @@
 package ru.job4j.socialmediaapi.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -13,6 +14,7 @@ import java.time.Instant;
 @Setter
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Schema(description = "the model that represents subscription of one person to another after sending a friend request.")
 public class Subscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
