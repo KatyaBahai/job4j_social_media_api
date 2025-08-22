@@ -32,8 +32,16 @@ class SubscriptionRepositoryTest {
 
     @Test
     public void whenSaveThenFindById() {
-        User userFollower = User.builder().name("John Doe").password("pass").build();
-        User userFollowed = User.builder().name("Jane Doe").password("password").build();
+        User userFollower = User.builder()
+                .name("John Doe")
+                .email("john.doe@example.com")
+                .password("pass")
+                .build();
+        User userFollowed = User.builder()
+                .name("Jane Doe")
+                .email("jane.doe@example.com")
+                .password("password")
+                .build();
         userRepository.save(userFollower);
         userRepository.save(userFollowed);
 
@@ -51,8 +59,16 @@ class SubscriptionRepositoryTest {
 
     @Test
     public void whenFindAllThenReturnAll() {
-        User userFollower = User.builder().name("John Doe").password("pass").build();
-        User userFollowed = User.builder().name("Jane Doe").password("password").build();
+        User userFollower = User.builder()
+                .name("John Doe")
+                .email("john.doe@example.com")
+                .password("pass")
+                .build();
+        User userFollowed = User.builder()
+                .name("Jane Doe")
+                .email("jane.doe@example.com")
+                .password("password")
+                .build();
         userRepository.save(userFollower);
         userRepository.save(userFollowed);
 

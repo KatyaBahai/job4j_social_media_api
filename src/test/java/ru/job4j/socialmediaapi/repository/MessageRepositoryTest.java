@@ -30,8 +30,18 @@ class MessageRepositoryTest {
 
     @Test
     public void whenSaveThenFindById() {
-        User sender = userRepository.save(new User(null, "john", "email.ru", "pass"));
-        User recipient = userRepository.save(new User(null, "jane", "email.com", "password"));
+        User user1 = User.builder()
+                .name("john")
+                .email("john.doe@example.com")
+                .password("pass")
+                .build();
+        User user2 = User.builder()
+                .name("jane")
+                .email("jane.doe@example.com")
+                .password("password")
+                .build();
+        User sender = userRepository.save(user1);
+        User recipient = userRepository.save(user2);
         Message message = Message.builder().text("question").sender(sender).recipient(recipient).build();
         messageRepository.save(message);
         var found = messageRepository.findById(message.getId());
@@ -41,8 +51,18 @@ class MessageRepositoryTest {
 
     @Test
     public void whenFindAllThenReturnAll() {
-        User sender = userRepository.save(new User(null, "john", "email.ru", "pass"));
-        User recipient = userRepository.save(new User(null, "jane", "email.com", "password"));
+        User user1 = User.builder()
+                .name("john")
+                .email("john.doe@example.com")
+                .password("pass")
+                .build();
+        User user2 = User.builder()
+                .name("jane")
+                .email("jane.doe@example.com")
+                .password("password")
+                .build();
+        User sender = userRepository.save(user1);
+        User recipient = userRepository.save(user2);
 
         Message message1 = Message.builder().text("question").sender(recipient).recipient(sender).build();
         Message message2 = Message.builder().text("answer").sender(sender).recipient(recipient).build();

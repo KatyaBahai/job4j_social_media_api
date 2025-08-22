@@ -10,6 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByName(String username);
+
+    Boolean existsByName(String username);
+
+    Boolean existsByEmail(String email);
 
     @Query("from User u WHERE u.email = :email AND u.password = :password")
     Optional<User> findByEmailAndPassword(

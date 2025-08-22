@@ -11,5 +11,7 @@
     <include file="scripts/004_ddl_create_table_messages.sql" relativeToChangelogFile="true"/>
     <include file="scripts/005_ddl_create_table_friend_requests.sql" relativeToChangelogFile="true"/>
     <include file="scripts/006_ddl_create_table_subscriptions.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/007_ddl_create_table_friendships.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/008_ddl_create_table_roles.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/009_dml_insert_roles.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/010_ddl_create_table_users_roles.sql" relativeToChangelogFile="true"/>
    </databaseChangeLog>
